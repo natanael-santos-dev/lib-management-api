@@ -7,4 +7,6 @@ bookRoutes.get('/books', BookController.getBooks);
 
 bookRoutes.get('/books/:id', BookController.getBook);
 
+bookRoutes.post('/books', BookController.addBook);
+
 export default bookRoutes;
