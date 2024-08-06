@@ -49,6 +49,18 @@ class UserController {
             });
         }
     }
+
+    static async deleteUser(req, res) {
+        try {
+            const id = req.params.id;
+            await userModel.findByIdAndDelete(id);
+            res.status(200).json({ message: 'User deleted successfuly' });
+        } catch (error) {
+            res.status(500).json({
+                message: `${error.message} - falid to delete user`
+            });
+        }
+    }
 }
 
 export default UserController;

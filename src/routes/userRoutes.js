@@ -11,4 +11,6 @@ userRoutes.post('/users', UserController.createUser);
 
 userRoutes.put('/users/:id', UserController.updateUser);
 
+userRoutes.delete('/users/:id', UserController.deleteUser);
+
 export default userRoutes;
