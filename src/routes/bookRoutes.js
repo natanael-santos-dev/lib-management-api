@@ -11,4 +11,6 @@ bookRoutes.post('/books', BookController.addBook);
 
 bookRoutes.put('/books/:id', BookController.updateBook);
 
+bookRoutes.delete('/books/:id', BookController.deleteBook);
+
 export default bookRoutes;
