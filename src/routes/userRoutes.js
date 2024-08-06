@@ -7,4 +7,6 @@ userRoutes.get('/users', UserController.getUsers);
 
 userRoutes.get('/users/:id', UserController.getUser);
 
+userRoutes.post('/users', UserController.createUser);
+
 export default userRoutes;

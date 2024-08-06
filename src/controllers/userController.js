@@ -23,6 +23,20 @@ class UserController {
             });
         }
     }
+
+    static async createUser(req, res) {
+        try {
+            const newUser = await userModel.create(req.body);
+            res.status(201).json({
+                message: 'User created successfuly',
+                user: newUser
+            });
+        } catch (error) {
+            res.status(500).json({
+                message: `${error.message} - falid to create user`
+            });
+        }
+    }
 }
 
 export default UserController;
