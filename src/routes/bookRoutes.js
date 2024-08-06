@@ -9,4 +9,6 @@ bookRoutes.get('/books/:id', BookController.getBook);
 
 bookRoutes.post('/books', BookController.addBook);
 
+bookRoutes.put('/books/:id', BookController.updateBook);
+
 export default bookRoutes;
