@@ -7,7 +7,7 @@ class BookController {
             res.status(200).json(books);
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to search books`
+                message: `${error.message} - failed to search books`
             });
         }
     }
@@ -19,7 +19,7 @@ class BookController {
             res.status(200).json(book);
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to search book`
+                message: `${error.message} - failed to search book`
             });
         }
     }
@@ -33,7 +33,7 @@ class BookController {
             });
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to added book`
+                message: `${error.message} - failed to added book`
             });
         }
     }
@@ -45,7 +45,7 @@ class BookController {
             res.status(200).json({ message: 'Book updating successfully' });
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to update book`
+                message: `${error.message} - failed to update book`
             });
         }
     }
@@ -57,7 +57,7 @@ class BookController {
             res.status(200).json({ message: 'Book deleted successfully' });
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to delete book`
+                message: `${error.message} - failed to delete book`
             });
         }
     }

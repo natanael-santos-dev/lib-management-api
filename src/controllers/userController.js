@@ -7,7 +7,7 @@ class UserController {
             res.status(200).json(users);
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to search users`
+                message: `${error.message} - failed to search users`
             });
         }
     }
@@ -19,7 +19,7 @@ class UserController {
             res.status(200).json(user);
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to search user`
+                message: `${error.message} - failed to search user`
             });
         }
     }
@@ -33,7 +33,7 @@ class UserController {
             });
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to create user`
+                message: `${error.message} - failed to create user`
             });
         }
     }
@@ -45,7 +45,7 @@ class UserController {
             res.status(200).json({ message: 'User updating successfully' });
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to update user`
+                message: `${error.message} - failed to update user`
             });
         }
     }
@@ -57,7 +57,7 @@ class UserController {
             res.status(200).json({ message: 'User deleted successfully' });
         } catch (error) {
             res.status(500).json({
-                message: `${error.message} - falid to delete user`
+                message: `${error.message} - failed to delete user`
             });
         }
     }
