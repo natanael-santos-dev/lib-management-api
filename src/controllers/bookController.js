@@ -28,7 +28,7 @@ class BookController {
         try {
             const newBook = await bookModel.create(req.body);
             res.status(200).json({
-                message: 'Book added successfuly',
+                message: 'Book added successfully',
                 book: newBook
             });
         } catch (error) {
@@ -42,7 +42,7 @@ class BookController {
         try {
             const id = req.params.id;
             await bookModel.findByIdAndUpdate(id, req.body);
-            res.status(200).json({ message: 'Book updating successfuly' });
+            res.status(200).json({ message: 'Book updating successfully' });
         } catch (error) {
             res.status(500).json({
                 message: `${error.message} - falid to update book`
@@ -54,7 +54,7 @@ class BookController {
         try {
             const id = req.params.id;
             await bookModel.findByIdAndDelete(id);
-            res.status(200).json({ message: 'Book deleted successfuly' });
+            res.status(200).json({ message: 'Book deleted successfully' });
         } catch (error) {
             res.status(500).json({
                 message: `${error.message} - falid to delete book`
