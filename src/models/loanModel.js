@@ -13,6 +13,7 @@ const loanSchema = new mongoose.Schema(
     },
     { versionKey: false }
 );
+
 const loanModel = mongoose.model('loans', loanSchema);
 
 export default loanModel;

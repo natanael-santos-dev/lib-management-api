@@ -14,25 +14,34 @@ class loanController {
         try {
             const bookFound = await bookModel.findById(loan.book);
             const userFound = await userModel.findById(loan.user);
-            const newLoan = await loanModel.create({
-                user: { ...userFound._doc },
-                book: { ...bookFound._doc },
-                loanDate: loan.loanDate,
-                dueDate: loan.dueDate,
-                returnDate: loan.returnDate
-            });
-            const formattedLoan = {
-                ...newLoan._doc,
-                loanDate: formatDate(newLoan.loanDate),
-                dueDate: formatDate(newLoan.dueDate),
-                returnDate: newLoan.returnDate
-                    ? formatDate(newLoan.returnDate)
-                    : ''
-            };
-            res.status(201).json({
-                message: 'Loan created successfully',
-                loan: formattedLoan
-            });
+            if (bookFound.availableCopies > 0) {
+                const updatedBook = await bookModel.findByIdAndUpdate(
+                    loan.book,
+                    { $inc: { availableCopies: -1 } },
+                    { new: true } // Retorna o documento atualizado
+                );
+                const newLoan = await loanModel.create({
+                    user: { ...userFound._doc },
+                    book: { ...updatedBook._doc },
+                    loanDate: loan.loanDate,
+                    dueDate: loan.dueDate,
+                    returnDate: loan.returnDate
+                });
+                const formattedLoan = {
+                    ...newLoan._doc,
+                    loanDate: formatDate(newLoan.loanDate),
+                    dueDate: formatDate(newLoan.dueDate),
+                    returnDate: newLoan.returnDate
+                        ? formatDate(newLoan.returnDate)
+                        : ''
+                };
+                res.status(201).json({
+                    message: 'Loan created successfully',
+                    loan: formattedLoan
+                });
+            } else {
+                res.status(400).json({ message: 'No copies available' });
+            }
         } catch (error) {
             res.status(500).json({
                 message: `${error.message} - failed to create loan`
