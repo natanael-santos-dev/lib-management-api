@@ -82,6 +82,20 @@ class loanController {
             });
         }
     }
+
+    static async getLoan(req, res) {
+        try {
+            const id = req.params.id;
+
+            const loan = await loanModel.findById(id);
+
+            res.status(200).json(loan);
+        } catch (error) {
+            res.status(500).json({
+                message: `${error.message} - failed to search loan`
+            });
+        }
+    }
 }
 
 export default loanController;
