@@ -4,22 +4,25 @@ import { userModel } from '../models/userModel.js';
 
 const formatDate = (date) => {
     if (!date) return null;
-    const d = new Date();
-    return d.toISOString().split('T')[0];
+    const formattedDate = new Date(date);
+    return formattedDate.toISOString().split('T')[0];
 };
 
 class loanController {
     static async createLoan(req, res) {
         const loan = req.body;
+
         try {
             const bookFound = await bookModel.findById(loan.book);
             const userFound = await userModel.findById(loan.user);
+
             if (bookFound.availableCopies > 0) {
                 const updatedBook = await bookModel.findByIdAndUpdate(
                     loan.book,
                     { $inc: { availableCopies: -1 } },
-                    { new: true } // Retorna o documento atualizado
+                    { new: true }
                 );
+
                 const newLoan = await loanModel.create({
                     user: { ...userFound._doc },
                     book: { ...updatedBook._doc },
@@ -27,6 +30,7 @@ class loanController {
                     dueDate: loan.dueDate,
                     returnDate: loan.returnDate
                 });
+
                 const formattedLoan = {
                     ...newLoan._doc,
                     loanDate: formatDate(newLoan.loanDate),
@@ -35,6 +39,7 @@ class loanController {
                         ? formatDate(newLoan.returnDate)
                         : ''
                 };
+
                 res.status(201).json({
                     message: 'Loan created successfully',
                     loan: formattedLoan
