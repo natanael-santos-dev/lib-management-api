@@ -53,6 +53,35 @@ class loanController {
             });
         }
     }
+
+    static async closeLoan(req, res) {
+        try {
+            const id = req.params.id;
+
+            const loanFound = await loanModel.findById(id);
+
+            const updatedBook = await bookModel.findByIdAndUpdate(
+                loanFound.book,
+                { $inc: { availableCopies: 1 } },
+                { new: true }
+            );
+
+            const closedLoan = await loanModel.findByIdAndUpdate(
+                id,
+                { book: updatedBook, returnDate: new Date() },
+                { new: true }
+            );
+
+            res.status(200).json({
+                message: 'Loan closed successfully',
+                loan: closedLoan
+            });
+        } catch (error) {
+            res.status(500).json({
+                message: `${error.message} - failed to closed loan`
+            });
+        }
+    }
 }
 
 export default loanController;
