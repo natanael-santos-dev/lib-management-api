@@ -8,6 +8,15 @@ const formatDate = (date) => {
     return formattedDate.toISOString().split('T')[0];
 };
 
+const formatLoan = (loan) => {
+    return {
+        ...loan._doc,
+        loanDate: formatDate(loan.loanDate),
+        dueDate: formatDate(loan.dueDate),
+        returnDate: loan.returnDate ? formatDate(loan.returnDate) : ''
+    };
+};
+
 class loanController {
     static async createLoan(req, res) {
         const loan = req.body;
@@ -31,18 +40,9 @@ class loanController {
                     returnDate: loan.returnDate
                 });
 
-                const formattedLoan = {
-                    ...newLoan._doc,
-                    loanDate: formatDate(newLoan.loanDate),
-                    dueDate: formatDate(newLoan.dueDate),
-                    returnDate: newLoan.returnDate
-                        ? formatDate(newLoan.returnDate)
-                        : ''
-                };
-
                 res.status(201).json({
                     message: 'Loan created successfully',
-                    loan: formattedLoan
+                    loan: formatLoan(newLoan)
                 });
             } else {
                 res.status(400).json({ message: 'No copies available' });
@@ -74,7 +74,7 @@ class loanController {
 
             res.status(200).json({
                 message: 'Loan closed successfully',
-                loan: closedLoan
+                loan: formatLoan(closedLoan)
             });
         } catch (error) {
             res.status(500).json({
