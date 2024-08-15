@@ -1,21 +1,7 @@
 import loanModel from '../models/loanModel.js';
 import { bookModel } from '../models/bookModel.js';
 import { userModel } from '../models/userModel.js';
-
-const formatDate = (date) => {
-    if (!date) return null;
-    const formattedDate = new Date(date);
-    return formattedDate.toISOString().split('T')[0];
-};
-
-const formatLoan = (loan) => {
-    return {
-        ...loan._doc,
-        loanDate: formatDate(loan.loanDate),
-        dueDate: formatDate(loan.dueDate),
-        returnDate: loan.returnDate ? formatDate(loan.returnDate) : ''
-    };
-};
+import formatLoan from '../utils/utils.js';
 
 class loanController {
     static async createLoan(req, res) {
