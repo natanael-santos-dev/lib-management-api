@@ -89,7 +89,7 @@ class loanController {
 
             const loan = await loanModel.findById(id);
 
-            res.status(200).json(loan);
+            res.status(200).json(formatLoan(loan));
         } catch (error) {
             res.status(500).json({
                 message: `${error.message} - failed to search loan`
