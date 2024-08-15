@@ -96,6 +96,26 @@ class loanController {
             });
         }
     }
+
+    static async deleteLoan(req, res) {
+        const id = req.params.id;
+
+        try {
+            const loan = await loanModel.findById(id);
+
+            if (!loan.returnDate) {
+                return res.status(400).json({ message: 'Book still on loan' });
+            }
+
+            await loanModel.findByIdAndDelete(id);
+
+            res.status(200).json({ message: 'Loan deleted successfully' });
+        } catch (error) {
+            res.status(500).json({
+                message: `${error.message} - failed to delete loan`
+            });
+        }
+    }
 }
 
 export default loanController;

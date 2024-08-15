@@ -11,4 +11,6 @@ loanRoutes.post('/loans', loanController.createLoan);
 
 loanRoutes.put('/loans/:id', loanController.closeLoan);
 
+loanRoutes.delete('/loans/:id', loanController.deleteLoan);
+
 export default loanRoutes;
