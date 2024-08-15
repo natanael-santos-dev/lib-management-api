@@ -3,6 +3,8 @@ import loanController from '../controllers/loanController.js';
 
 const loanRoutes = express.Router();
 
+loanRoutes.get('/loans', loanController.getLoans);
+
 loanRoutes.get('/loans/:id', loanController.getLoan);
 
 loanRoutes.post('/loans', loanController.createLoan);

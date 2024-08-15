@@ -69,6 +69,20 @@ class loanController {
         }
     }
 
+    static async getLoans(req, res) {
+        try {
+            const loans = await loanModel.find();
+
+            const formattedLoas = loans.map(formatLoan);
+
+            res.status(200).json(formattedLoas);
+        } catch (error) {
+            res.status(500).json({
+                message: `${error.message} - failed to search loans`
+            });
+        }
+    }
+
     static async getLoan(req, res) {
         try {
             const id = req.params.id;
